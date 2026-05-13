@@ -82,7 +82,11 @@ class TrpcClient:
         return self._config.organization_id
 
     def query(self, procedure: str, payload: Mapping[str, Any]) -> Any:
-        encoded = quote(json.dumps({"json": dict(payload)}), safe="")
+        # The server runs tRPC v10 *without* the superjson transformer, so
+        # inputs are sent as plain JSON (not `{"json": <payload>}`) and
+        # responses come back as `{"result":{"data":<value>}}` (no `.json`
+        # wrapper). See `src/typescript/frontend/src/lib/trpc/server.ts`.
+        encoded = quote(json.dumps(dict(payload)), safe="")
         url = f"{self._config.base_url}/trpc/{procedure}?input={encoded}"
         response = self._session.get(
             url,
@@ -95,7 +99,7 @@ class TrpcClient:
         url = f"{self._config.base_url}/trpc/{procedure}"
         response = self._session.post(
             url,
-            json={"json": dict(payload)},
+            json=dict(payload),
             headers=self._headers(),
             timeout=DEFAULT_TIMEOUT_SECONDS,
         )
@@ -121,10 +125,12 @@ class TrpcClient:
 
         if isinstance(body, dict) and "error" in body:
             err = body["error"]
-            if isinstance(err, dict) and "json" in err:
-                err = err["json"]
             if isinstance(err, dict):
-                code = err.get("code") or err.get("data", {}).get("code") or "ERROR"
+                # The server returns errors at the top level (no superjson
+                # `.json` wrap). Extract the human code + message; carry the
+                # platform-level `data.code` (e.g. UNAUTHORIZED, CONFLICT,
+                # BAD_REQUEST) when present.
+                code = err.get("data", {}).get("code") or err.get("code") or "ERROR"
                 message = err.get("message") or "unknown error"
                 raise UpstreamError(f"{procedure}: {code}: {message}")
             raise UpstreamError(f"{procedure}: {err!r}")
@@ -134,4 +140,4 @@ class TrpcClient:
 
         if not isinstance(body, dict):
             return body
-        return body.get("result", {}).get("data", {}).get("json")
+        return body.get("result", {}).get("data")
