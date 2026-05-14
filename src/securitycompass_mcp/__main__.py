@@ -1,8 +1,8 @@
 """Entry point — runs the MCP server over stdio.
 
 Usage:
-    python -m zeropath_securitycompass_mcp
-    zeropath-securitycompass-mcp
+    python -m securitycompass_mcp
+    securitycompass-mcp
 """
 
 from __future__ import annotations

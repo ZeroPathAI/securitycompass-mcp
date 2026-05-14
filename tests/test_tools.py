@@ -11,8 +11,8 @@ from typing import Any
 
 import pytest
 
-from zeropath_securitycompass_mcp.tools import TOOL_DEFINITIONS, call_tool
-from zeropath_securitycompass_mcp.trpc_client import Config, TrpcClient
+from securitycompass_mcp.tools import TOOL_DEFINITIONS, call_tool
+from securitycompass_mcp.trpc_client import Config, TrpcClient
 
 
 class _StubClient(TrpcClient):
@@ -90,7 +90,7 @@ def test_unknown_tool_raises():
 
 
 def test_load_config_requires_credentials(monkeypatch):
-    from zeropath_securitycompass_mcp.trpc_client import ConfigError, load_config
+    from securitycompass_mcp.trpc_client import ConfigError, load_config
 
     monkeypatch.delenv("ZEROPATH_TOKEN_ID", raising=False)
     monkeypatch.delenv("ZEROPATH_TOKEN_SECRET", raising=False)
@@ -99,7 +99,7 @@ def test_load_config_requires_credentials(monkeypatch):
 
 
 def test_load_config_reads_env(monkeypatch):
-    from zeropath_securitycompass_mcp.trpc_client import load_config
+    from securitycompass_mcp.trpc_client import load_config
 
     monkeypatch.setenv("ZEROPATH_TOKEN_ID", "id_xyz")
     monkeypatch.setenv("ZEROPATH_TOKEN_SECRET", "secret_xyz")

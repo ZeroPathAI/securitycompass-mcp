@@ -39,7 +39,7 @@ Add this to your MCP client's configuration:
   "mcpServers": {
     "zeropath-securitycompass": {
       "command": "uvx",
-      "args": ["zeropath-securitycompass-mcp"],
+      "args": ["securitycompass-mcp"],
       "env": {
         "ZEROPATH_TOKEN_ID": "<your-api-token-id>",
         "ZEROPATH_TOKEN_SECRET": "<your-api-token-secret>",
@@ -69,7 +69,7 @@ in its arguments.
 ```bash
 uv venv
 uv pip install -e ".[dev]"
-python -m zeropath_securitycompass_mcp
+python -m securitycompass_mcp
 ```
 
 Run tests:

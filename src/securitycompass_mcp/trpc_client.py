@@ -25,7 +25,7 @@ import requests
 
 API_TOKEN_ID_HEADER = "X-ZeroPath-API-Token-Id"
 API_TOKEN_SECRET_HEADER = "X-ZeroPath-API-Token-Secret"
-CLIENT_HEADER_VALUE = "zeropath-securitycompass-mcp"
+CLIENT_HEADER_VALUE = "securitycompass-mcp"
 DEFAULT_TIMEOUT_SECONDS = 30
 
 

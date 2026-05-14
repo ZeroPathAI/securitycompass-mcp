@@ -1,5 +1,5 @@
 [project]
-name = "zeropath-securitycompass-mcp"
+name = "securitycompass-mcp"
 version = "0.1.0"
 description = "MCP server for ZeroPath's Security Compass (SD Elements) integration"
 readme = "README.md"
@@ -40,19 +40,19 @@ dev = [
 
 [project.urls]
 Homepage = "https://zeropath.com"
-Documentation = "https://github.com/ZeroPathAI/zeropath-securitycompass-mcp#readme"
-Repository = "https://github.com/ZeroPathAI/zeropath-securitycompass-mcp"
-Issues = "https://github.com/ZeroPathAI/zeropath-securitycompass-mcp/issues"
+Documentation = "https://github.com/ZeroPathAI/securitycompass-mcp#readme"
+Repository = "https://github.com/ZeroPathAI/securitycompass-mcp"
+Issues = "https://github.com/ZeroPathAI/securitycompass-mcp/issues"
 
 [project.scripts]
-zeropath-securitycompass-mcp = "zeropath_securitycompass_mcp.__main__:main"
+securitycompass-mcp = "securitycompass_mcp.__main__:main"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/zeropath_securitycompass_mcp"]
+packages = ["src/securitycompass_mcp"]
 
 [tool.hatch.build.targets.sdist]
 include = [

@@ -22,7 +22,7 @@ from . import __version__
 from .tools import TOOL_DEFINITIONS, call_tool
 from .trpc_client import ConfigError, TrpcClient, UpstreamError, load_config
 
-SERVER_NAME = "zeropath-securitycompass-mcp"
+SERVER_NAME = "securitycompass-mcp"
 
 
 def create_server() -> Server:
@@ -36,7 +36,7 @@ def create_server() -> Server:
     try:
         config = load_config()
     except ConfigError as err:
-        print(f"[zeropath-securitycompass-mcp] {err}", file=sys.stderr)
+        print(f"[securitycompass-mcp] {err}", file=sys.stderr)
         sys.exit(2)
 
     client = TrpcClient(config)
