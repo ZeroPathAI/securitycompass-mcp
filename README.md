@@ -43,7 +43,8 @@ Add this to your MCP client's configuration:
       "env": {
         "ZEROPATH_TOKEN_ID": "<your-api-token-id>",
         "ZEROPATH_TOKEN_SECRET": "<your-api-token-secret>",
-        "ZEROPATH_ORG_ID": "<your-organization-id>"
+        "ZEROPATH_ORG_ID": "<your-organization-id>",
+        "ZEROPATH_BASE_URL": "https://securitycompass.branch.zeropath.com/"
       }
     }
   }
@@ -58,11 +59,22 @@ Generate an API token at <https://zeropath.com/app/settings/api-tokens>.
 |---|---|---|---|
 | `ZEROPATH_TOKEN_ID` | yes | — | API token id |
 | `ZEROPATH_TOKEN_SECRET` | yes | — | API token secret |
-| `ZEROPATH_ORG_ID` | recommended | — | Default organization id (auto-injected when tools omit it) |
-| `ZEROPATH_BASE_URL` | no | `https://zeropath.com` | Override for self-hosted deployments |
+| `ZEROPATH_ORG_ID` | yes | — | Default organization id (auto-injected when tools omit it). Required for the Security Compass deployment — see below. |
+| `ZEROPATH_BASE_URL` | yes | `https://zeropath.com` | URL of the ZeroPath deployment to connect to. Required for the Security Compass deployment — the built-in default does **not** point at it (see below). |
 
-If `ZEROPATH_ORG_ID` is not set, every tool call must include `organizationId`
-in its arguments.
+> **Security Compass deployment.** This server targets the dedicated Security
+> Compass deployment of ZeroPath, not `https://zeropath.com`. Because of that,
+> `ZEROPATH_BASE_URL` is **always required**: the built-in default is not the
+> Security Compass deployment, so leaving it unset connects to the wrong host.
+> Set it explicitly to the deployment URL, for example:
+>
+> ```
+> ZEROPATH_BASE_URL=https://securitycompass.branch.zeropath.com/
+> ```
+>
+> `ZEROPATH_ORG_ID` is likewise **required** for this deployment, so that every
+> tool call resolves to the correct organization. If `ZEROPATH_ORG_ID` is not
+> set, every tool call must include `organizationId` in its arguments.
 
 ## Development
 
